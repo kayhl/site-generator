@@ -2,6 +2,13 @@ import unittest
 from block_markdown import *
 
 class TestBlockMarkdown(unittest.TestCase):
+    def test_extracttitle(self):
+        md = """
+This is a line
+# But here's the header"""
+        title = extract_title(md)
+        self.assertEqual(title, "But here's the header")
+
     def test_markdown_to_blocks(self):
         md = """
 This is **bolded** paragraph

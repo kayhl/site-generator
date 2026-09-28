@@ -1,5 +1,6 @@
 import os
 import shutil
+from gencontent import generate_pages_recursive
 
 def create_clean_dest(dest_dir):
     if os.path.exists(dest_dir):
@@ -20,5 +21,6 @@ def copy_files_recursive(source_dir, dest_dir):
 def main():    
     create_clean_dest("public")
     copy_files_recursive("static", "public")
+    generate_pages_recursive("content", "template.html", "public")
 
 main()
