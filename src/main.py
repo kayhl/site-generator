@@ -1,22 +1,24 @@
-from textnode import TextNode, TextType
 import os
 import shutil
 
-def main():
-    if os.path.exists("public"):
-        shutil.rmtree("public")
-    os.mkdir("public")
+def create_clean_dest(dest_dir):
+    if os.path.exists(dest_dir):
+        shutil.rmtree(dest_dir)
+    os.mkdir(dest_dir)
+
+def copy_files_recursive(source_dir, dest_dir): 
+    main_dir = os.listdir(source_dir)
+    for item in main_dir:
+        src_path = os.path.join(source_dir, item)
+        dest_path = os.path.join(dest_dir, item)
+        if os.path.isfile(src_path):
+            shutil.copy(src_path, dest_path)
+        else:
+            os.mkdir(dest_path)
+            copy_files_recursive(src_path, dest_path)
+
+def main():    
+    create_clean_dest("public")
+    copy_files_recursive("static", "public")
 
 main()
-
-
-
-
-
-
-
-
-# copy from source to destination (static to public for us)
-# delete all of destination/public
-# copy all files/subdirectories/nestings
-# try logging to see what happens when it runs
